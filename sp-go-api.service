@@ -1,0 +1,13 @@
+[Unit]
+Description=SP Go API
+After=network.target
+
+[Service]
+User=root
+Group=nginx
+
+WorkingDirectory=/home/triet/com.agiledirectory/sp-go-api
+ExecStart=/home/triet/com.agiledirectory/sp-go-api/sp-go-api
+
+[Install]
+WantedBy=multi-user.target
