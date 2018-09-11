@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/trinhminhtriet/sp-go-api/models"
+	"strconv"
+	"github.com/trinhminhtriet/gorm-pagination/pagination"
 )
 
 type CompanyController struct {
@@ -19,10 +21,22 @@ func NewCompanyController(db *gorm.DB) *CompanyController {
 
 func (ctl CompanyController) GetAll(c *gin.Context) {
 	company := []models.Company{}
+
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit := 10
+
 	ctl.db.Find(&company)
 
+	result := pagination.Pagging(&pagination.Param{
+		DB:      ctl.db,
+		Page:    page,
+		Limit:   limit,
+		OrderBy: []string{"id desc"},
+		ShowSQL: true,
+	}, &company)
+
 	ctl.SuccessResponse(c, gin.H{
-		"companies": company,
+		"company": result,
 	})
 }
 
