@@ -53,6 +53,10 @@ func BuildRoutes(db *gorm.DB) *gin.Engine {
 		skillController := controllers.NewSkillController(db)
 		makeResource(unAuthorized.Group("/skill"), skillController)
 
+		//Industry
+		industryController := controllers.NewIndustryController(db)
+		makeResource(unAuthorized.Group("/industry"), industryController)
+
 	}
 
 	// Authentication required
