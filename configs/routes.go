@@ -1,6 +1,8 @@
 package configs
 
 import (
+	"os"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -21,7 +23,7 @@ func BuildRoutes(db *gorm.DB) *gin.Engine {
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://agiledirectory.com", "http://localhost:3000"},
+		AllowOrigins:     []string{os.Getenv("APP_ALLOW_ORIGINS")},
 		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE"},
 		AllowHeaders:     []string{"Origin"},
 		ExposeHeaders:    []string{"Content-Length"},

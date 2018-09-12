@@ -32,5 +32,5 @@ func main() {
 
 	// Init router
 	router := configs.BuildRoutes(db.Debug())
-	router.Run(":" + os.Getenv("APP_PORT"))
+	router.Run(os.Getenv("APP_HOST") + ":" + os.Getenv("APP_PORT"))
 }
